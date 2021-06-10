@@ -223,49 +223,49 @@ if uploaded_file is not None:
     """
 
 
-if st.sidebar.button('Run search'):
-    with st.spinner('Wait for it...'):
-        time.sleep(5)
+    if st.sidebar.button('Run search'):
+        with st.spinner('Wait for it...'):
+            time.sleep(5)
 
-    df = return_matches(average_diff)
-    st.title('Search results')
+        df = return_matches(average_diff)
+        st.title('Search results')
 
-    cols = st.beta_columns((1,3,3,5)) # number of columns in each row! = 2
-    cols[0].subheader('Orbit')
-    cols[1].subheader('First Acquisition Image')
-    cols[2].subheader('Second Acquisition Image')
-    cols[3].subheader('Job Configuration')
-
-    num_results = 0
-    if df.shape[0] == 0:
-        st.warning('Search returned zero results, please change the search request')
-    elif df.shape[0] <= 5:
-        num_results = df.shape[0]
-    else:
-        num_results = 6
-
-    for i in range(0, num_results): # number of rows in your table! = 2
         cols = st.beta_columns((1,3,3,5)) # number of columns in each row! = 2
-        # first column of the ith row
-        result = df.iloc[[i]]
+        cols[0].subheader('Orbit')
+        cols[1].subheader('First Acquisition Image')
+        cols[2].subheader('Second Acquisition Image')
+        cols[3].subheader('Job Configuration')
 
-        first_image_id = result['id_x'].values[0]
-        second_image_id = result['id_y'].values[0]
+        num_results = 0
+        if df.shape[0] == 0:
+            st.warning('Search returned zero results, please change the search request')
+        elif df.shape[0] <= 5:
+            num_results = df.shape[0]
+        else:
+            num_results = 6
 
-        orbit = result['orbit'].values[0]
-        first_id = result['scene_id_x'].str[:255].values[0]
-        second_id = result['scene_id_y'].str[:255].values[0]
-        first_acquisition = result['acquisitionDate_x'].values[0]
-        second_acquisition = result['acquisitionDate_y'].values[0]
-        config = job_config(first_id, second_id, aoi)
+        for i in range(0, num_results): # number of rows in your table! = 2
+            cols = st.beta_columns((1,3,3,5)) # number of columns in each row! = 2
+            # first column of the ith row
+            result = df.iloc[[i]]
 
-        cols[0].text(orbit)
-        cols[1].text(first_acquisition)
-        cols[1].image('https://sobloo.eu/api/v1/services/quicklook/' + str(first_image_id), use_column_width=True) 
-        cols[2].text(second_acquisition)
-        cols[2].image('https://sobloo.eu/api/v1/services/quicklook/' + str(second_image_id), use_column_width=True) 
-        cols[3].text(config)
-        #cols[3].text(second_acquisition, use_column_width=True 
+            first_image_id = result['id_x'].values[0]
+            second_image_id = result['id_y'].values[0]
+
+            orbit = result['orbit'].values[0]
+            first_id = result['scene_id_x'].str[:255].values[0]
+            second_id = result['scene_id_y'].str[:255].values[0]
+            first_acquisition = result['acquisitionDate_x'].values[0]
+            second_acquisition = result['acquisitionDate_y'].values[0]
+            config = job_config(first_id, second_id, aoi)
+
+            cols[0].text(orbit)
+            cols[1].text(first_acquisition)
+            cols[1].image('https://sobloo.eu/api/v1/services/quicklook/' + str(first_image_id), use_column_width=True) 
+            cols[2].text(second_acquisition)
+            cols[2].image('https://sobloo.eu/api/v1/services/quicklook/' + str(second_image_id), use_column_width=True) 
+            cols[3].text(config)
+            #cols[3].text(second_acquisition, use_column_width=True 
     
 
 uploaded_file = st.sidebar.empty()
