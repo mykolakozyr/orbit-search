@@ -40,7 +40,7 @@ average_diff = (((second_max_date - first_max_date) + (second_min_date - first_m
 #st.write(average_diff)
 
 
-# GEOMETRY COMPONTNT
+# GEOMETRY COMPONENT
 st.sidebar.header('Define Area of Interest')
 #aoi = st.sidebar.text_input("GeoJSON")
 uploaded_file = st.sidebar.file_uploader("Upload a GeoJSON file of the Area of Interest",type='geojson')
@@ -48,9 +48,9 @@ uploaded_file = st.sidebar.file_uploader("Upload a GeoJSON file of the Area of I
 
 # SEARCH COMPONENT
 # Defining UP42 credentials
-backend_url = 'https://api.up42.com'
-project_id = '5db8c781-86bd-4b3f-89c3-1ce150d04e75'
-project_api_key = 'nEgpVSD2.G2n18AMlI2r38fjGoYFznHlwNd5qT6Q79c0'
+backend_url = secrets["backend_url"]
+project_id = st.secrets["project_id"]
+project_api_key = st.secrets["project_api_key"]
 
 
 # MAIN INFORMATION
