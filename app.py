@@ -48,7 +48,7 @@ uploaded_file = st.sidebar.file_uploader("Upload a GeoJSON file of the Area of I
 
 # SEARCH COMPONENT
 # Defining UP42 credentials
-backend_url = secrets["backend_url"]
+backend_url = st.secrets["backend_url"]
 project_id = st.secrets["project_id"]
 project_api_key = st.secrets["project_api_key"]
 
